@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll",
+    "test": "jest",
     "test:staged": "jest"
   },
   "standard": {
@@ -15,6 +15,7 @@
   "author": "Aryel Alves",
   "license": "ISC",
   "devDependencies": {
+    "@types/jest": "^26.0.7",
     "@types/node": "^14.0.26",
     "@typescript-eslint/eslint-plugin": "^2.33.0",
     "eslint": "^7.5.0",
@@ -27,6 +28,7 @@
     "husky": "^4.2.5",
     "jest": "^26.0.1",
     "lint-staged": "^10.2.11",
+    "ts-jest": "^26.1.3",
     "typescript": "^3.9.7"
   }
 }
