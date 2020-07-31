@@ -50,9 +50,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        email: '_email@mail.com',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -64,9 +64,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -78,9 +78,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        passwordConfirmation: '_password'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -92,9 +92,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -106,9 +106,9 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password',
         passwordConfirmation: 'invalid_password'
       }
     }
@@ -122,10 +122,10 @@ describe('SignUp Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
     const httpRequest = {
       body: {
-        name: 'any_name',
+        name: '_name',
         email: 'invalid_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
 
@@ -140,15 +140,15 @@ describe('SignUp Controller', () => {
     const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
 
     sut.handle(httpRequest)
-    expect(isValidSpy).toHaveBeenCalledWith('any_email@mail.com')
+    expect(isValidSpy).toHaveBeenCalledWith('_email@mail.com')
   })
 
   test('Should return 500 if EmailValidator throws', () => {
@@ -156,10 +156,10 @@ describe('SignUp Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
 
@@ -174,18 +174,18 @@ describe('SignUp Controller', () => {
     const addSpy = jest.spyOn(addAccountStub, 'add')
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
 
     sut.handle(httpRequest)
     expect(addSpy).toHaveBeenCalledWith({
-      name: 'any_name',
-      email: 'any_email@mail.com',
-      password: 'any_password'
+      name: '_name',
+      email: '_email@mail.com',
+      password: '_password'
     })
   })
 
@@ -194,10 +194,10 @@ describe('SignUp Controller', () => {
     jest.spyOn(addAccountStub, 'add').mockImplementationOnce(() => { throw new Error() })
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_password',
-        passwordConfirmation: 'any_password'
+        name: '_name',
+        email: '_email@mail.com',
+        password: '_password',
+        passwordConfirmation: '_password'
       }
     }
 
@@ -205,5 +205,27 @@ describe('SignUp Controller', () => {
 
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 200 if valid data is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'valid_name',
+        email: 'valid_email@mail.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    }
+
+    const httpResponse = sut.handle(httpRequest)
+
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'valid_id',
+      name: 'valid_name',
+      email: 'valid_email@mail.com',
+      password: 'valid_password'
+    })
   })
 })
