@@ -3,7 +3,7 @@ import { DbAuthentication } from '../../../../../data/usecases/authentication/db
 import { AccountMongoRepository } from '../../../../../infra/db/mongodb/account/account-mongo-repository'
 import { BcryptAdapter } from '../../../../../infra/cryptography/bcrypt-adapter/bcrypt-adapter'
 import { JwtAdapter } from '../../../../../infra/cryptography/jwt-adapter/jwt-adapter'
-import { Authentication } from '../../../../../domain/useCases/authentication'
+import { Authentication } from '../@/domain/useCases/authentication'
 
 export const makeDbAuthentication = (): Authentication => {
   const salt = 12
