@@ -1,6 +1,6 @@
 import { loginPath } from './paths/login-path'
-import { accountSchema } from './schemas/account-schema'
-import { loginParamsSchema } from './schemas/login-params-schema'
+import { badRequest, serverError, unauthorized, notFound } from './components'
+import { accountSchema, errorSchema, loginParamsSchema } from './schemas'
 
 export default {
   openapi: '3.0.0',
@@ -8,6 +8,10 @@ export default {
     title: 'Clean Ts Api',
     description: 'API do curso do mango TDD de enquetes',
     version: '1.0.0'
+  },
+  license: {
+    name: 'GPL-3.0-or-later',
+    url: 'https://spdx.org/licenses/GPL-3.0-or-later.html'
   },
   servers: [{ url: '/api' }],
   tags: [
@@ -18,6 +22,13 @@ export default {
   },
   schemas: {
     account: accountSchema,
-    loginParams: loginParamsSchema
+    loginParams: loginParamsSchema,
+    error: errorSchema
+  },
+  components: {
+    badRequest,
+    serverError,
+    unauthorized,
+    notFound
   }
 }
